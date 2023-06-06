@@ -1,7 +1,6 @@
 package com.tencent.wxcloudrun.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.tencent.wxcloudrun.openai.OpenApiHttp;
 import com.tencent.wxcloudrun.openai.bo.OpenAIReplayMessage;
@@ -10,9 +9,9 @@ import com.tencent.wxcloudrun.openai.request.OpenAIAuthRequest;
 import com.tencent.wxcloudrun.openai.request.OpenAIReplayRequest;
 import com.tencent.wxcloudrun.openai.response.OpenAiAuthResponse;
 import com.tencent.wxcloudrun.openai.response.OpenAiReplayResponse;
+import com.tencent.wxcloudrun.service.OpenAiService;
 import com.tencent.wxcloudrun.service.request.BaseRequest;
 import com.tencent.wxcloudrun.service.response.BaseResponse;
-import com.tencent.wxcloudrun.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
