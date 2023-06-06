@@ -1,8 +1,8 @@
 package com.tencent.wxcloudrun.config;
 
 public enum OpenApiEnum {
-    OPEN_AI_AUTH(0001, "get", "https://api.openai.com/v1/models"),
-    OPEN_AI_GET_REPLAY(0002, "post", "https://api.openai.com/v1/chat/completions"),
+    OPEN_AI_AUTH(0001, "get", "http://43.135.135.141:8080/openai/auth"),
+    OPEN_AI_GET_REPLAY(0002, "get", "http://43.135.135.141:8080/openai/getReplay"),
     ;
 
 

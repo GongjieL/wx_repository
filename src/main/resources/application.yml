@@ -16,6 +16,13 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
 
+openai:
+  proxy:
+    auth:
+      http://43.135.135.141:8080/openai/auth
+    getReplay:
+      http://43.135.135.141:8080/openai/getReplay
+
 OpenAI-Authorization:
   Bearer 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
 OpenAI-Organization:

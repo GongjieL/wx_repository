@@ -9,4 +9,9 @@ public interface OpenAiService {
     public abstract BaseResponse<Boolean> auth();
 
     public abstract BaseResponse<String> getReplay(BaseRequest<String> request);
+
+
+    public abstract BaseResponse<Boolean> authWithProxy();
+
+    public abstract BaseResponse<String> getReplayWithProxy(BaseRequest<String> request);
 }

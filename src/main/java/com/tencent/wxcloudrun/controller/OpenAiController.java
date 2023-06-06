@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/openai")
@@ -19,11 +20,11 @@ public class OpenAiController {
 
     @RequestMapping("/auth")
     public BaseResponse<Boolean> auth() {
-        return openAiService.auth();
+        return openAiService.authWithProxy();
     }
 
     @PostMapping("/getReplay")
     public BaseResponse<String> getReplay(@RequestBody BaseRequest<String> request) {
-        return openAiService.getReplay(request);
+        return openAiService.getReplayWithProxy(request);
     }
 }
