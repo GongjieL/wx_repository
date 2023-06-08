@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/openai")
 public class OpenAiController {
@@ -26,5 +28,11 @@ public class OpenAiController {
     @PostMapping("/getReplay")
     public BaseResponse<String> getReplay(@RequestBody BaseRequest<String> request) {
         return openAiService.getReplayWithProxy(request);
+    }
+
+
+    @PostMapping("/generateImage")
+    public BaseResponse<List<String>> generateImageWithProxy(@RequestBody BaseRequest<String> request) {
+        return openAiService.generateImageWithProxy(request);
     }
 }

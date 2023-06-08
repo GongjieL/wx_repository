@@ -11,6 +11,7 @@ import com.tencent.wxcloudrun.openai.response.OpenAiAuthResponse;
 import com.tencent.wxcloudrun.openai.response.OpenAiReplayResponse;
 import com.tencent.wxcloudrun.service.OpenAiService;
 import com.tencent.wxcloudrun.service.request.BaseRequest;
+import com.tencent.wxcloudrun.service.request.UserInfo;
 import com.tencent.wxcloudrun.service.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +50,12 @@ public class OpenAiServiceImpl implements OpenAiService {
 
     @Value("${openai.proxy.getReplay}")
     private String openAiProxyGetPeplayUrl;
+
+    @Value("${openai.proxy.generateImg}")
+    private String openAiProxyGenerateImgUrl;
+
+    @Value("${openai.proxy.login}")
+    private String userProxyLoginUrl;
 
     public BaseResponse<Boolean> auth() {
         OpenAIAuthRequest aiAuthRequest = new OpenAIAuthRequest();
@@ -92,6 +99,15 @@ public class OpenAiServiceImpl implements OpenAiService {
     }
 
     @Override
+    public BaseResponse<UserInfo> loginWithProxy(BaseRequest<UserInfo> userInfo) {
+        HttpEntity<BaseRequest<UserInfo>> httpEntity = new HttpEntity<>(userInfo,null);
+        ResponseEntity<String> response =
+                restTemplate.exchange(userProxyLoginUrl, HttpMethod.POST, httpEntity, String.class);
+        return JSON.parseObject(response.getBody(),
+                new TypeReference<BaseResponse<UserInfo>>() {});
+    }
+
+    @Override
     public BaseResponse<String> getReplayWithProxy(BaseRequest<String> request) {
 
         HttpEntity<BaseRequest<String>> httpEntity = new HttpEntity<>(request,null);
@@ -99,5 +115,16 @@ public class OpenAiServiceImpl implements OpenAiService {
                 restTemplate.exchange(openAiProxyGetPeplayUrl, HttpMethod.POST, httpEntity, String.class);
         return JSON.parseObject(response.getBody(),
                 new TypeReference<BaseResponse<String>>() {});
+    }
+
+
+    @Override
+    public BaseResponse<List<String>> generateImageWithProxy(BaseRequest<String> request) {
+
+        HttpEntity<BaseRequest<String>> httpEntity = new HttpEntity<>(request,null);
+        ResponseEntity<String> response =
+                restTemplate.exchange(openAiProxyGenerateImgUrl, HttpMethod.POST, httpEntity, String.class);
+        return JSON.parseObject(response.getBody(),
+                new TypeReference<BaseResponse<List<String>>>() {});
     }
 }

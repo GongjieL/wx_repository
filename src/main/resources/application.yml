@@ -20,8 +20,12 @@ openai:
   proxy:
     auth:
       http://43.135.135.141:8080/openai/auth
+    generateImg:
+      http://43.135.135.141:8080/openai/generateImg
     getReplay:
       http://43.135.135.141:8080/openai/getReplay
+    login:
+      http://43.135.135.141:8080/user/operate/login
 
 OpenAI-Authorization:
   Bearer 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
