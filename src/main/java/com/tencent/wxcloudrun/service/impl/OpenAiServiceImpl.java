@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -61,6 +62,7 @@ public class OpenAiServiceImpl implements OpenAiService {
 
     @Value("${openai.proxy.listLatestChatAiResponsesUrl}")
     private String openAiProxyListLatestChatAiResponsesUrl;
+
 
     public BaseResponse<Boolean> auth() {
         OpenAIAuthRequest aiAuthRequest = new OpenAIAuthRequest();
@@ -141,8 +143,55 @@ public class OpenAiServiceImpl implements OpenAiService {
     public BaseResponse<List<ChatAiInfo>> listLatestChatAiResponsesWithProxy(Integer size) {
         ResponseEntity<String> response =
                 restTemplate.exchange(openAiProxyListLatestChatAiResponsesUrl + "?size=" + size, HttpMethod.GET, null, String.class);
-        return JSON.parseObject(response.getBody(),
+        BaseResponse<List<ChatAiInfo>> listBaseResponse = JSON.parseObject(response.getBody(),
                 new TypeReference<BaseResponse<List<ChatAiInfo>>>() {
                 });
+        if (listBaseResponse.getSuccess()) {
+            Integer id = 1;
+            List<ChatAiInfo> data = listBaseResponse.getData();
+            if (data.size() < 6) {
+                List<ChatAiInfo> chatAiInfos = listCommonChatAiInfos();
+                //2个，补4个,6
+                for (int i = data.size(); i < size; i++) {
+                    data.add(chatAiInfos.get(i - data.size()));
+                }
+            }
+            for (ChatAiInfo datum : data) {
+                datum.setId(id + "");
+                id++;
+            }
+        }
+        return listBaseResponse;
+    }
+
+
+    private List<ChatAiInfo> listCommonChatAiInfos() {
+        String commonChatInfos = "[\n" +
+                "  {\n" +
+                "    \"username\": \"好运姐\",\n" +
+                "    \"question\": \"什么情况下老鼠可以吃掉大象\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"username\": \"石头哥\",\n" +
+                "    \"question\": \"马斯克\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"username\": \"好彩妹\",\n" +
+                "    \"question\": \"帮我写首描述夏天的诗\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"username\": \"杨戬\",\n" +
+                "    \"question\": \"怎么捕获哮天犬\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"username\": \"好彩妹\",\n" +
+                "    \"question\": \"封神演义\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"username\": \"好彩妹\",\n" +
+                "    \"question\": \"姜太公钓鱼\"\n" +
+                "  }\n" +
+                "]";
+        return JSON.parseArray(commonChatInfos, ChatAiInfo.class);
     }
 }
