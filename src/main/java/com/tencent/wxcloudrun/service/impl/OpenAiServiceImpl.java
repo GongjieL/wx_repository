@@ -149,11 +149,12 @@ public class OpenAiServiceImpl implements OpenAiService {
         if (listBaseResponse.getSuccess()) {
             Integer id = 1;
             List<ChatAiInfo> data = listBaseResponse.getData();
-            if (data.size() < 6) {
+            int dataSize = data.size();
+            if (dataSize < 6) {
                 List<ChatAiInfo> chatAiInfos = listCommonChatAiInfos();
                 //2个，补4个,6
-                for (int i = data.size(); i < size; i++) {
-                    data.add(chatAiInfos.get(i - data.size()));
+                for (int i = dataSize; i < size; i++) {
+                    data.add(chatAiInfos.get(i - dataSize));
                 }
             }
             for (ChatAiInfo datum : data) {
