@@ -1,6 +1,7 @@
 package com.tencent.wxcloudrun.service;
 
 import com.tencent.wxcloudrun.service.request.BaseRequest;
+import com.tencent.wxcloudrun.service.request.ChatAiInfo;
 import com.tencent.wxcloudrun.service.request.UserInfo;
 import com.tencent.wxcloudrun.service.response.BaseResponse;
 
@@ -21,4 +22,6 @@ public interface OpenAiService {
     public abstract BaseResponse<String> getReplayWithProxy(BaseRequest<String> request);
 
     public abstract BaseResponse<List<String>> generateImageWithProxy(BaseRequest<String> request);
+
+    BaseResponse<List<ChatAiInfo>> listLatestChatAiResponsesWithProxy(Integer size);
 }

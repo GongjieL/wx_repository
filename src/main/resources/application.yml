@@ -26,6 +26,9 @@ openai:
       http://43.135.135.141:8080/openai/getReplay
     login:
       http://43.135.135.141:8080/user/operate/login
+    listLatestChatAiResponsesUrl:
+      http://43.135.135.141:8080/openai/listLatestChatAiResponse
+
 
 OpenAI-Authorization:
   Bearer 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
