@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -51,7 +50,10 @@ public class OpenAiServiceImpl implements OpenAiService {
     private String openAiProxyAuthUrl;
 
     @Value("${openai.proxy.getReplay}")
-    private String openAiProxyGetPeplayUrl;
+    private String openAiProxyGetReplayUrl;
+
+    @Value("${openai.proxy.getLocalReplay}")
+    private String openAiProxyGetLocalReplayUrl;
 
     @Value("${openai.proxy.generateImg}")
     private String openAiProxyGenerateImgUrl;
@@ -121,7 +123,18 @@ public class OpenAiServiceImpl implements OpenAiService {
 
         HttpEntity<BaseRequest<String>> httpEntity = new HttpEntity<>(request, null);
         ResponseEntity<String> response =
-                restTemplate.exchange(openAiProxyGetPeplayUrl, HttpMethod.POST, httpEntity, String.class);
+                restTemplate.exchange(openAiProxyGetReplayUrl, HttpMethod.POST, httpEntity, String.class);
+        return JSON.parseObject(response.getBody(),
+                new TypeReference<BaseResponse<String>>() {
+                });
+    }
+
+    @Override
+    public BaseResponse<String> getLocalReplayWithProxy(BaseRequest<String> request) {
+
+        HttpEntity<BaseRequest<String>> httpEntity = new HttpEntity<>(request, null);
+        ResponseEntity<String> response =
+                restTemplate.exchange(openAiProxyGetLocalReplayUrl, HttpMethod.POST, httpEntity, String.class);
         return JSON.parseObject(response.getBody(),
                 new TypeReference<BaseResponse<String>>() {
                 });

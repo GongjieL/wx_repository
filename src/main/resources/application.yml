@@ -24,6 +24,8 @@ openai:
       http://43.135.135.141:8080/openai/generateImg
     getReplay:
       http://43.135.135.141:8080/openai/getReplay
+    getLocalReplay:
+      http://43.135.135.141:8080/openai/getLocalReplay
     login:
       http://43.135.135.141:8080/user/operate/login
     listLatestChatAiResponsesUrl:

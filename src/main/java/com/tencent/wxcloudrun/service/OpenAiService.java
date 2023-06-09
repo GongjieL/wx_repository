@@ -21,6 +21,8 @@ public interface OpenAiService {
 
     public abstract BaseResponse<String> getReplayWithProxy(BaseRequest<String> request);
 
+    BaseResponse<String> getLocalReplayWithProxy(BaseRequest<String> request);
+
     public abstract BaseResponse<List<String>> generateImageWithProxy(BaseRequest<String> request);
 
     BaseResponse<List<ChatAiInfo>> listLatestChatAiResponsesWithProxy(Integer size);

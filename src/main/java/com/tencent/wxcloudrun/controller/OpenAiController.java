@@ -28,6 +28,11 @@ public class OpenAiController {
     }
 
 
+    @PostMapping("/getLocalReplay")
+    public BaseResponse<String> getLocalReplay(@RequestBody BaseRequest<String> request) {
+        return openAiService.getLocalReplayWithProxy(request);
+    }
+
     @PostMapping("/generateImage")
     public BaseResponse<List<String>> generateImageWithProxy(@RequestBody BaseRequest<String> request) {
         return openAiService.generateImageWithProxy(request);
